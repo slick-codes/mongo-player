@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@800&family=Poppins&family=Roboto&family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+$abstract-image: url("/images/compressjpgabstract-organic-lines-background_1017-26669 1.jpg");
+
+$primary-color: #191627;
+$secondary-color: #2D2846;
+$bright-blue: #8A76F8;
+$bright-yellow: #efc223;
+$primary-white: #F4F4F4;
+$grayish: #E9E9E9;
+
+// transition 
+$transition-speed: 0s;
+$secondary-transition-speed: .3s;
+
+$transparent-lightmode: #ffffff54;
+$transparent-darkmode: rgba(45, 40, 70, 0.3607843137);
+
+
+:root {
+    --bright-yellow: #efc223;
+    --primary-color: #191627;
+    --secondary-color: #2D2846;
+    --bright-blue: #020104;
+}
+
+* {
+    box-sizing: border-box;
+    list-style: none;
+    font-family: poppins;
+    outline: none;
+    scroll-behavior: smooth;
+    outline: none;
+    transition-property: background, color;
+    // transition-duration: 0.3s;
+}
+
+::-webkit-scrollbar {
+    background-color: $primary-color;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $secondary-color;
+    border-radius: 0.2em;
+}

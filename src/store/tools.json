@@ -1,0 +1,66 @@
+[
+    {
+        "name": "React.js",
+        "image": "/images/tools/react.png"
+    },
+    {
+        "name": "Vue/Nuxt",
+        "image": "/images/tools/vue.png"
+    },
+    {
+        "name": "Svelte",
+        "image": "/images/tools/svelte.png"
+    },
+    {
+        "name": "Nodejs",
+        "image": "/images/tools/nodejs.png"
+    },
+    {
+        "name": "Mongodb",
+        "image": "/images/tools/mongodb.png"
+    },
+    {
+        "name": "mySQL",
+        "image": "/images/tools/mysql.png"
+    },
+    {
+        "name": "GIT/GITHUB",
+        "image": "/images/tools/git.png"
+    },
+    {
+        "name": "ExpressJs",
+        "image": "/images/tools/expressjs.png"
+    },
+    {
+        "name": "TailwindCSS",
+        "image": "/images/tools/tailwindcss.png"
+    },
+    {
+        "name": "corelDraw",
+        "image": "/images/tools/coreldraw.png"
+    },
+    {
+        "name": "Photoshop",
+        "image": "/images/tools/photoshop.png"
+    },
+    {
+        "name": "Figma",
+        "image": "/images/tools/figma.png"
+    },
+    {
+        "name": "AdobeXD",
+        "image": "/images/tools/adobexd.png"
+    },
+    {
+        "name": "Illustrator",
+        "image": "/images/tools/illustrator.png"
+    },
+    {
+        "name": "Afinity Designer",
+        "image": "/images/tools/afinitydesigner.png"
+    },
+    {
+        "name": "Invision",
+        "image": "/images/tools/invision.png"
+    }
+]

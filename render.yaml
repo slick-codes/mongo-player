@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: sveltekit-node
+    env: node
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    autoDeploy: false

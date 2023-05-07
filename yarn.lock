@@ -413,6 +413,11 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
+"@tokenizer/token@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@tokenizer/token/-/token-0.3.0.tgz#fe98a93fe789247e998c75e74e9c7c63217aa276"
+  integrity sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-1.1.2.tgz"
@@ -1065,6 +1070,11 @@ console-control-strings@^1.0.0, console-control-strings@^1.1.0:
   resolved "https://registry.npmjs.org/console-control-strings/-/console-control-strings-1.1.0.tgz"
   integrity sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==
 
+content-type@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/content-type/-/content-type-1.0.5.tgz#8b773162656d1d1086784c8f23a54ce6d73d7918"
+  integrity sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==
+
 cookie@^0.4.1:
   version "0.4.2"
   resolved "https://registry.npmjs.org/cookie/-/cookie-0.4.2.tgz"
@@ -1562,6 +1572,15 @@ file-entry-cache@^6.0.1:
   dependencies:
     flat-cache "^3.0.4"
 
+file-type@^18.2.1:
+  version "18.3.0"
+  resolved "https://registry.yarnpkg.com/file-type/-/file-type-18.3.0.tgz#116d4df9120b7f17e973ad5c976b82a40407bd07"
+  integrity sha512-pkPZ5OGIq0TYb37b8bHDLNeQSe1H2KlaQ2ySGpJkkr2KZdaWsO4QhPzHA0mQcsUW2cSqJk+4gM/UyLz/UFbXdQ==
+  dependencies:
+    readable-web-to-node-stream "^3.0.2"
+    strtok3 "^7.0.0"
+    token-types "^5.0.1"
+
 fill-range@^7.0.1:
   version "7.0.1"
   resolved "https://registry.npmjs.org/fill-range/-/fill-range-7.0.1.tgz"
@@ -2003,6 +2022,11 @@ iconv-lite@^0.6.2:
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
 
+ieee754@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
+  integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
+
 ignore@^5.2.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz"
@@ -2372,6 +2396,11 @@ matcher@^3.0.0:
   dependencies:
     escape-string-regexp "^4.0.0"
 
+media-typer@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-1.1.0.tgz#6ab74b8f2d3320f2064b2a87a38e7931ff3a5561"
+  integrity sha512-aisnrDP4GNe06UcKFnV5bfMNPBUw4jsLGaWwWfnH3v02GnBuXX2MCVn5RbrWo0j3pczUilYblq7fQ7Nw2t5XKw==
+
 meow@^9.0.0:
   version "9.0.0"
   resolved "https://registry.npmjs.org/meow/-/meow-9.0.0.tgz"
@@ -2548,6 +2577,19 @@ ms@^2.0.0:
   version "2.1.3"
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
+
+music-metadata@^8.1.4:
+  version "8.1.4"
+  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-8.1.4.tgz#a65e59366bf347821ae2ea4fb0661bf202e37b7c"
+  integrity sha512-q9mw2qeESeJY69cXtdaum/YJstDimpP+mwZnb801iq20JpyY75v6uzcp6VfVXZDixpD2f9yWneJtA0TgSEypxA==
+  dependencies:
+    "@tokenizer/token" "^0.3.0"
+    content-type "^1.0.5"
+    debug "^4.3.4"
+    file-type "^18.2.1"
+    media-typer "^1.1.0"
+    strtok3 "^7.0.0"
+    token-types "^5.0.1"
 
 nan@^2.13.2:
   version "2.16.0"
@@ -2845,6 +2887,11 @@ pathval@^1.1.1:
   resolved "https://registry.npmjs.org/pathval/-/pathval-1.1.1.tgz"
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
+peek-readable@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/peek-readable/-/peek-readable-5.0.0.tgz#7ead2aff25dc40458c60347ea76cfdfd63efdfec"
+  integrity sha512-YtCKvLUOvwtMGmrniQPdO7MwPjgkFBtFIrmfSbYmYuq3tKDV/mcfAhBth1+C3ru7uXIZasc/pHnb+YDYNkkj4A==
+
 pend@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/pend/-/pend-1.2.0.tgz#7a57eb550a6783f9115331fcf4663d5c8e007a50"
@@ -3082,6 +3129,13 @@ readable-stream@^3.6.0:
     inherits "^2.0.3"
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
+
+readable-web-to-node-stream@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/readable-web-to-node-stream/-/readable-web-to-node-stream-3.0.2.tgz#5d52bb5df7b54861fd48d015e93a2cb87b3ee0bb"
+  integrity sha512-ePeK6cc1EcKLEhJFt/AebMCLL+GgSKhuygrZ/GLaKZYEecIgIECf4UaUuaByiGtzckwR4ain9VzUh95T1exYGw==
+  dependencies:
+    readable-stream "^3.6.0"
 
 readdirp@~3.6.0:
   version "3.6.0"
@@ -3530,6 +3584,14 @@ strip-literal@^1.0.0:
   dependencies:
     acorn "^8.8.2"
 
+strtok3@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-7.0.0.tgz#868c428b4ade64a8fd8fee7364256001c1a4cbe5"
+  integrity sha512-pQ+V+nYQdC5H3Q7qBZAz/MO6lwGhoC2gOAjuouGf/VO0m7vQRh8QNMl2Uf6SwAtzZ9bOw3UIeBukEGNJl5dtXQ==
+  dependencies:
+    "@tokenizer/token" "^0.3.0"
+    peek-readable "^5.0.0"
+
 sumchecker@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/sumchecker/-/sumchecker-3.0.1.tgz#6377e996795abb0b6d348e9b3e1dfb24345a8e42"
@@ -3574,6 +3636,11 @@ svelte-hmr@^0.15.1:
   version "0.15.1"
   resolved "https://registry.npmjs.org/svelte-hmr/-/svelte-hmr-0.15.1.tgz"
   integrity sha512-BiKB4RZ8YSwRKCNVdNxK/GfY+r4Kjgp9jCLEy0DuqAKfmQtpL38cQK3afdpjw4sqSs4PLi3jIPJIFp259NkZtA==
+
+svelte-material-icons@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/svelte-material-icons/-/svelte-material-icons-3.0.4.tgz#844b06c86a3b7a068647f13959c6cf251d7a9aa0"
+  integrity sha512-b126iWd/kMZgstYbGIocmGwN2txGFW+S+BY+d66yPRVSgcZgrnzRJWQbhn0OCy7dzzjkYfgI/i2PdWRukqu+RQ==
 
 svelte-preprocess@4.10.7, svelte-preprocess@^4.0.0:
   version "4.10.7"
@@ -3677,6 +3744,14 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
+
+token-types@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/token-types/-/token-types-5.0.1.tgz#aa9d9e6b23c420a675e55413b180635b86a093b4"
+  integrity sha512-Y2fmSnZjQdDb9W4w4r1tswlMHylzWIeOKpx0aZH9BgGtACHhrk3OkT52AzwcuqTRBZtvvnTjDBh8eynMulu8Vg==
+  dependencies:
+    "@tokenizer/token" "^0.3.0"
+    ieee754 "^1.2.1"
 
 totalist@^3.0.0:
   version "3.0.0"

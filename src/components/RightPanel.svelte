@@ -1,18 +1,18 @@
 <script lang="ts">
-
+	import PreviewPanel from './PreviewPanel.svelte';
+	import AudioList from './AudioList.svelte';
 </script>
 
-
-<div class="right-panel">
-
+<div class="rightpanel">
+	<PreviewPanel />
+	<AudioList />
 </div>
 
 <style lang="scss">
-    .right-panel{
-        padding-top:3em;
-        width:100%;
-        padding-right:3em;
-        background:purple;
-    }
-
+	.rightpanel {
+		padding-top: 0em;
+		width: 100%;
+		// padding-right:3em;
+		// background:purple;
+	}
 </style>

@@ -11,7 +11,7 @@ const config: UserConfig = {
 			"framesync"]
 	},
 	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
+		include: ['src/**/*.{test,spec}.{js,ts}', "electron/src/*.js"]
 	}
 };
 

@@ -8,17 +8,26 @@ app.whenReady().then(function () {
         width: 900,
         height: 600,
         minWidth: 900,
+        sandbox: false,
         minHeight: 600,
+        show: false,
         transparent: true,
         // frame: false,
         autoHideMenuBar: true,
         webPreferences: {
-            nodeIntegration: true
-        }
+            sandbox: false,
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegrationInWorker: true,
+            nodeIntegration: true,
+            contextIsolation: true
+        },
     })
 
-    // window.webContents.openDevTools()
-    window.setMaximumSize(900, 700)
-    // window.loadFile(path.join(__dirname, "./../build/index.html"))
+
+    // this is only for development purpose
+    window.setPosition(1618, 180)
+    window.on("ready-to-show", window.show)
+
     window.loadURL("http://localhost:5173")
+
 })

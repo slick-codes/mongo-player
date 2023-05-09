@@ -22,7 +22,6 @@
 	@import './../assets/scss/config';
 	.controller {
 		height: 10em;
-		// background:blue;
 		padding: $side-padding;
 		padding-top: 0;
 

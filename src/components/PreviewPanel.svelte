@@ -17,7 +17,7 @@
 	@import './../assets/scss/config';
 
 	.preview__panel {
-		height: 18em;
+		height: 19em;
 		background: blue;
 		position: relative;
 		// background-position: center left;

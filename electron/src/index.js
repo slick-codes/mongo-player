@@ -1,6 +1,11 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
+
+// disable file access restriction
+app.commandLine.appendSwitch('allow-file-access-from-files');
+app.commandLine.appendSwitch('disable-web-security');
+
 app.whenReady().then(function () {
 
     const window = new BrowserWindow({
@@ -15,6 +20,7 @@ app.whenReady().then(function () {
         // frame: false,
         autoHideMenuBar: true,
         webPreferences: {
+            webSecurity: false, //prevent file access restriction
             sandbox: false,
             preload: path.join(__dirname, "preload.js"),
             nodeIntegrationInWorker: true,

@@ -3,15 +3,14 @@
 	import SideBar from './../components/SideBar.svelte';
 </script>
 
-
 <div class="top-content">
-    <SideBar />
-    <RightPanel />
+	<SideBar />
+	<RightPanel />
 </div>
 
 <style lang="scss">
-    .top-content{
-        height:100%;
-        display:flex;
-    }
+	.top-content {
+		height: calc(100% - 10em);
+		display: flex;
+	}
 </style>

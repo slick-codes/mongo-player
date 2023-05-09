@@ -19,7 +19,7 @@
 		// @ts-ignore
 		fileInput.multiple = 'multiple';
 		// accepte folder
-		fileInput.webkitdirectory = 'true';
+		// fileInput.webkitdirectory = 'true';
 
 		// trigger a click on the input element
 		fileInput.click();

@@ -54,7 +54,7 @@ const getAudio = async function (directories) {
 
 contextBridge.exposeInMainWorld("api", {
     getAudio: () => getAudio(directories),
-    appName: "mongo player",
+    appName: "Mongo Player",
     getMetaData: (metaData) => (metaData.map(value => ({ path: value, ...NodeID3.read(value) })))
 })
 

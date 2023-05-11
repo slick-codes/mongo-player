@@ -1,23 +1,16 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	// console.log(audios)
+	import { playlist, musicList, formatTimestamp, formatTimestampToDate } from './../store/main';
+	import { createAudio } from './../store/audio';
 
-	async function getAudioData() {
-		if (browser) {
-			const audio = await window.api.getAudio();
-			return audio;
-		}
+
+	let audios: any[] = [];
+	playlist.subscribe(value => audios = value)
+
+	function playMusic(event: Event, obj) {
+		createAudio.playTrack(obj.index);
 	}
 
-	function playMusic(event: Event, musicObj: object) {
-		let music = musicObj;
-		if (browser) {
-			const audio = new Audio();
-			// music.file.split('').pop();
-			audio.src = `file://${music.file}`;
-			audio.play();
-		}
-	}
 </script>
 
 <div class="audiolist">
@@ -35,23 +28,20 @@
 
 			<div class="main__audio">
 				<div class="element">
-					{#await getAudioData()}
-						<progress />
-					{:then audios}
-						{#each audios as audio, index}
-							<div
-								class="audio__content"
-								on:click={(event) => playMusic(event, { ...audio, index: index })}
-								on:keydown={null}
-							>
-								<div>{audio.title ?? audio.filename}</div>
-								<div>{audio.artist ?? 'Unknown'}</div>
-								<div>{audio.album ?? 'Unknown'}</div>
-								<div>Added</div>
-								<div>3:30</div>
-							</div>
-						{/each}
-					{/await}
+					{#each audios as audio, index}
+						<div
+							class="audio__content" 
+							on:click={(event) => playMusic(event, { ...audio, index: index })}
+							on:keydown={null}
+						>
+							<div>{audio.title ?? audio.filename}</div>
+							<div>{audio.artist ?? 'Unknown'}</div>
+							<div>{audio.album ?? 'Unknown'}</div>
+							<div>{ formatTimestampToDate(audio.birthtime) ?? "Unknown"}</div>
+								<div>{formatTimestamp(audio.duration)}</div>
+						</div>
+					{/each}
+					<!-- {/await} -->
 				</div>
 			</div>
 		</div>
@@ -77,6 +67,17 @@
 			display: flex;
 			flex-flow: column;
 
+			&:before{
+				content:"";
+				width:100%;
+				background:blue;
+				padding:1em 0;
+				position:absolute;
+				z-index:4;
+				bottom:0;background: rgb(15,20,30);
+background: linear-gradient(0deg, rgba(15,20,30,1) 0%, rgba(15,20,30,0.7) 100%);
+			}
+
 			&__content {
 				display: flex;
 				color: white;
@@ -86,12 +87,16 @@
 				white-space: nowrap;
 				padding: 0.5em 0.7em;
 
+				&.playing{
+					background:blue !important;
+				}
+
 				&:not(.title) {
 					cursor: pointer;
 				}
 
 				&:not(.title):hover {
-					background: gray;
+					background: #1f2631;
 				}
 
 				> div {

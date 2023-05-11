@@ -44,6 +44,9 @@
 		"sass": "^1.57.1",
 		"svelte": "^3.54.0",
 		"svelte-check": "^2.9.2",
+		"svelte-fa": "^3.0.3",
+		"svelte-feather-icons": "^4.0.0",
+		"svelte-octicons": "^18.2.0",
 		"svelte-preprocess": "4.10.7",
 		"svelte-reactive-preprocessor": "^0.8.3",
 		"tailwindcss": "^3.1.5",
@@ -56,11 +59,16 @@
 		"@slickcodes/object-2-html": "^1.0.1",
 		"@sveltejs/adapter-static": "^1.0.1",
 		"@types/nodemailer": "^6.4.7",
+		"data-uri": "^0.0.3",
 		"electron": "11.5.0",
 		"get-mp3-duration": "^1.0.0",
 		"music-duration": "^1.0.2",
 		"music-metadata": "^8.1.4",
 		"node-id3": "^0.2.6",
-		"svelte-material-icons": "^3.0.4"
+		"svelte-hero-icons": "4.0.0-beta.0",
+		"svelte-icons": "^2.1.0",
+		"svelte-icons-pack": "^2.1.0",
+		"svelte-material-icons": "^3.0.4",
+		"svelte-simple-icons": "^1.0.3"
 	}
 }

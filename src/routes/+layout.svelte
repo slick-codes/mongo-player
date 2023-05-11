@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { isDarkMode } from './../store/main';
 	import '../app.postcss';
 	import '../app.postcss';
 	import { browser } from '$app/environment';
-	let darkmode: boolean = true;
 
 	let about: string = '';
 	let title: string = '';
@@ -14,7 +12,6 @@
 </script>
 
 <svelte:head>
-	<meta name="theme-color" content={darkmode ? '#191627' : '#eeeeee'} />
 	<meta name="description" content={about} />
 	<title>{title}</title>
 	<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'none'" /> -->

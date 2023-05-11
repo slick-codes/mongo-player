@@ -1,10 +1,24 @@
 <script lang="ts">
+	import { trackData } from './../store/main.ts';
+
+	let trackMetaData = {};
+	trackData.subscribe((value) => (trackMetaData = value));
 </script>
 
-<div class="preview__panel" style={`background-image:url(/2a392148d9f25cb269d39cebcb271179.jpg)`}>
+<div
+	class="preview__panel"
+	style={`background-image:url(${
+		trackMetaData.image ?? '/2a392148d9f25cb269d39cebcb271179.jpg'
+	})`}
+>
 	<div class="search" />
 	<div class="details">
-		<div class="image" style={`background-image:url(/2a392148d9f25cb269d39cebcb271179.jpg)`} />
+		<div
+			class="image"
+			style={`background-image:url(${
+				trackMetaData.image ?? '/2a392148d9f25cb269d39cebcb271179.jpg'
+			})`}
+		/>
 		<div class="info">
 			<div class="info__name">
 				<h1>All Music</h1>
@@ -23,15 +37,17 @@
 		// background-position: center left;
 		background-repeat: no-repeat;
 		background-size: cover;
+		border-radius: 1em;
 
 		&:after {
 			content: '';
 			position: absolute;
+			border-radius: 1em;
 			top: 0;
 			left: 0;
 			backdrop-filter: blur(0.5em);
 			background-blend-mode: multiply;
-			background: rgb(15, 20, 30);
+			background: rgba(15, 20, 30, .9);
 			background: linear-gradient(
 				0deg,
 				rgba(15, 20, 30, 1) 4%,

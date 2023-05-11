@@ -4,14 +4,13 @@ import type { UserConfig } from 'vite';
 const config: UserConfig = {
 	plugins: [sveltekit()],
 	ssr: {
-		noExternal: [
-			"@egjs/flicking",
-			"@egjs/component",
-			"@sveltinio/media-content",
-			"framesync"]
+		noExternal: []
+	},
+	optimizeDeps: {
+		include: []
 	},
 	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}', "electron/src/*.js"]
+		include: ['src/**/*.{test,spec}.{js,ts}', "electron/src/*.{js,ts}"]
 	}
 };
 

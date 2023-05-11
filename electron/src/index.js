@@ -1,5 +1,7 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow ,ipcMain} = require('electron')
 const path = require('path')
+const {getAudio, directories} = require('./utils.js')
+
 
 
 // disable file access restriction
@@ -35,5 +37,14 @@ app.whenReady().then(function () {
     window.on("ready-to-show", window.show)
 
     window.loadURL("http://localhost:5173")
+    window.webContents.openDevTools()
+
+
+ipcMain.on("fetch-audios",  function(event, arg){
+    let audioArray =  getAudio(function(value){
+        window.webContents.send("audio-array", value)
+    })
+})
+
 
 })

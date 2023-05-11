@@ -3694,11 +3694,6 @@ svelte-feather-icons@^4.0.0:
   dependencies:
     svelte "^3.38.2"
 
-svelte-hero-icons@4.0.0-beta.0:
-  version "4.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/svelte-hero-icons/-/svelte-hero-icons-4.0.0-beta.0.tgz#7458619e16e91da7791b9dead0672eb4830b5c93"
-  integrity sha512-UyhiFUfWzdK4ilnuSKTkfBYItnHshGwxuaFvKqfwL9Az1P4K5/rOfzgLbqjcJ+6Ls+KJuUo0y9sbCAUkKrGzbg==
-
 svelte-hmr@^0.15.1:
   version "0.15.1"
   resolved "https://registry.npmjs.org/svelte-hmr/-/svelte-hmr-0.15.1.tgz"

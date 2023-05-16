@@ -9,7 +9,15 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-family:poppins;
 }
+
+@font-face {
+    font-family: poppins;
+    src:url("/fonts/poppins-regular.ttf");
+}
+
+
 
 $side-padding: 2em;
 

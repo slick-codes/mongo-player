@@ -8,7 +8,8 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"electron": "electron .",
+		"electron": "export DEVELOPMENT=true && electron .",
+		"electron:run": "export DEVELOPMENT= && electron .",
 		"electron:build": "vite build && electron .",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

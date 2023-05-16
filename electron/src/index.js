@@ -1,7 +1,6 @@
 const { app, BrowserWindow ,ipcMain} = require('electron')
 const path = require('path')
-const {getAudio, directories} = require('./utils.js')
-
+const methods = require('./methods')
 
 
 // disable file access restriction
@@ -34,17 +33,25 @@ app.whenReady().then(function () {
 
     // this is only for development purpose
     window.setPosition(1618, 180)
+    window.setFullScreen(true);
     window.on("ready-to-show", window.show)
 
-    window.loadURL("http://localhost:5173")
-    window.webContents.openDevTools()
+    console.log(process.env.DEVELOPMENT)
+
+   if(process.env.DEVELOPMENT){
+   	 window.loadURL("http://localhost:5173")
+   	 window.webContents.openDevTools()
+ } else{
+    console.log('a boy')
+	window.loadFile(path.join(__dirname, "../../build/index.html"))
+}
 
 
-ipcMain.on("fetch-audios",  function(event, arg){
-    let audioArray =  getAudio(function(value){
-        window.webContents.send("audio-array", value)
-    })
-})
+methods(window)
+
+// ipcMain.on("fetch-audios",  function(event, arg){
+//     let audioArray =  getAudio(event)
+// })
 
 
 })

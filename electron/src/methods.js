@@ -118,6 +118,7 @@ module.exports = function(window){
             }
         }
 
+
         
     ipcMain.on("fetch-all-audios", fetchAllAudios )
 
@@ -126,6 +127,7 @@ module.exports = function(window){
         .then(data => {
             event.reply("audio-array", data)
         })
-        // remove this event once it has been used!
-        ipcMain.removeListener("fetch-all-audios", () => console.log('ended'))
+        // remove this event once it has been used
+        // ipcMain.removeListener("fetch-all-audios", () => console.log('ended'))
     }
+}

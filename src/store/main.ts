@@ -35,7 +35,7 @@ export  const getAudioData = async function() {
       })
 
       window.api.onAudioLoading( function(index){
-        // console.log(index)
+        console.log(index)
       })
     }
 }

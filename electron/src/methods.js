@@ -44,8 +44,8 @@ module.exports = function(window){
                         });
                     });
                 },
-            createAudioObject({filePath, fileExt, fileStat, buffer}){
-                const duration =  this.getAudioDurationwithFFprobe({filePath, buffer})
+            async createAudioObject({filePath, fileExt, fileStat, buffer}){
+                const duration =  await this.getAudioDurationwithFFprobe({filePath, buffer})
                  let filename = filePath.split('/')[filePath.split('/').length - 1].split('.')
                  filename.pop()
                  filename = filename.join(".")
@@ -69,43 +69,49 @@ module.exports = function(window){
                     genre: genre ?? defaultValue, 
                     album: album?? filename , 
                     artist: artist ?? defaultValue,
-                    image: defaultImage,
+                    // image: defaultImage,
                     duration: duration,
                     birthtime: fileStat.birthtime
                 }
             },
 
-            scanForAudio(){
+            async scanForAudio(){
                 let index = 0;
-                const fetchAudio = (directories) => {
-                    let arrayOfAudio = [];
+                   const fetchAudio = async ( directories ) => {
+                        let arrayOfAudio = [];
 
-                    for( let directory of directories){
-                        fs.readdirSync(directory).forEach(  file => {
-                            const filePath = path.join(directory, file)
-                            const fileExt = path.extname(file)
-                            const fileStat = fs.statSync(filePath)
+                        for( let directory of directories ){
+                            const files = await fs.promises.readdir(directory)
+                            
+                            for( let file of files){
+                                const filePath = path.join(directory, file)
+                                const fileExt = path.extname(file)
+                                const fileStat = await fs.promises.stat(filePath)
 
-                            if(fileStat.isDirectory()){
-                                arrayOfAudio = [...arrayOfAudio, ...fetchAudio([filePath])]
+                                if(fileStat.isDirectory()){
+                                    let audios = await fetchAudio([filePath])
+                                    arrayOfAudio = [...arrayOfAudio, ...audios]
+                                }
+
+                                if(fileStat.isFile() && this.acceptedFileType.includes(fileExt)){
+                                    const buffer = await fs.promises.readFile(filePath)
+                                    
+                                    const audioObject = await this.createAudioObject({
+                                        filePath, fileExt, fileStat, buffer
+                                    })
+                                    index++
+                                    window.webContents.send("audio-read", {index, audio: audioObject})
+
+                                    arrayOfAudio.push(audioObject)
+                                }
+
                             }
+                        }
 
-                            if(fileStat.isFile() && this.acceptedFileType.includes(fileExt)){
-                                const buffer = fs.readFileSync(filePath)    
-                                const audioObject =  this.createAudioObject({
-                                    filePath, fileExt,fileStat, buffer
-                                })
-                                index++
-                                window.webContents.send("audio-read", {index}) 
-                                arrayOfAudio.push(audioObject)
-                            }
-                        })
-                    }
-                    return arrayOfAudio
-                }           
+                        return arrayOfAudio
+                   }
 
-                const result = fetchAudio(this.directories)
-                return result
+                   return await Promise.resolve(fetchAudio(this.directories))
             },
             scanPcForAudio(){
 
@@ -116,15 +122,10 @@ module.exports = function(window){
     ipcMain.on("fetch-all-audios", fetchAllAudios )
 
     function fetchAllAudios(event, arg){
-        const audios = methods.scanForAudio()
-
-        Promise.all(audios.map(obj => obj.duration))
-        .then((resolvedDurations) => {
-            const newAudios = audios.map((obj, index) => ({...obj, duration: resolvedDurations[index]}))
-            event.reply("audio-array", newAudios)
-            ipcMain.removeListener("fetch-all-audios", () => console.log('ended'))
+        methods.scanForAudio()
+        .then(data => {
+            event.reply("audio-array", data)
         })
-    }
-
-        // remove event listener
+        // remove this event once it has been used!
+        ipcMain.removeListener("fetch-all-audios", () => console.log('ended'))
     }

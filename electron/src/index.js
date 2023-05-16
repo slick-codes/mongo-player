@@ -32,13 +32,13 @@ app.whenReady().then(function () {
 
 
     // this is only for development purpose
-    window.setPosition(1618, 180)
-    window.setFullScreen(true);
     window.on("ready-to-show", window.show)
 
     console.log(process.env.DEVELOPMENT)
 
    if(process.env.DEVELOPMENT){
+    window.setPosition(1618, 180)
+    // window.setFullScreen(true);
    	 window.loadURL("http://localhost:5173")
    	 window.webContents.openDevTools()
  } else{
@@ -47,7 +47,7 @@ app.whenReady().then(function () {
 }
 
 
-methods(window)
+    methods(window)
 
 // ipcMain.on("fetch-audios",  function(event, arg){
 //     let audioArray =  getAudio(event)

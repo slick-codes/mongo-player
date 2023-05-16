@@ -10,18 +10,32 @@ export const progressState = writable({
   duration: "00:00"
 })
 
-export const trackData = writable({})
-
+export const trackData = writable({index: 0})
+export const playState = writable({
+    repeat: true,
+    random: true,
+    toggleRepeat(){
+      playState.update(state => ({...state, repeat: !state.repeat }))
+    },
+    toggleRandom(){
+      playState.update(state => ({...state, random: !state.random}))
+    }
+})
 
 export let playlist = writable([])
 
 // fetch audio from 
 export  const getAudioData = async function() {
     if (browser) {
+
       window.api.onFetchAudio( function(data){
-          createAudio.pushToPlaylist(data)
-          playlist.update(value => ([...value, data]))
-          console.log(data)
+        createAudio.addPlaylist(data)
+        playlist.update(value => data)
+        // console.log(data)
+      })
+
+      window.api.onAudioLoading( function(index){
+        // console.log(index)
       })
     }
 }

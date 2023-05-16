@@ -13,7 +13,7 @@
 		width: 100%;
 		display: flex;
 		flex-flow: column;
-		padding: 1em;
+		 /*padding: 1em; */
 		height: 100vh;
 	}
 </style>

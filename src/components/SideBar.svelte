@@ -98,7 +98,7 @@
 		padding: $side-padding;
 		padding-right: $side-padding;
 		width: 17em;
-
+		display:none;
 		.content > .title > span {
 			padding: 0px 0.4em;
 		}

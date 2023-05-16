@@ -1,7 +1,16 @@
 <script lang="ts">
 	import {  progressState } from '../store/main';
 	import { createAudio } from '../store/audio';
-	import { Pause , Play, Previous, Next} from './icons/index'
+	import { Pause , Play, Previous,VolumeUp,VolumeOff, Next, RandomIcon, ArrowRepeatOnce, ArrowRepeat} from './icons/index'
+	import { trackData, playState } from './../store/main'
+
+
+
+	let track;
+	trackData.subscribe(value => track = value)
+
+	let playType;
+	playState.subscribe(value => playType = value)
 
 	let progress: any = {};
 
@@ -18,32 +27,134 @@
 
 			createAudio.togglePlay()
 	}
+
+	function progressBar(event){
+			const audioDuration = createAudio.audio.duration
+			const elemWidth = event.target.offsetWidth
+			const calculatedTime = event.offsetX / elemWidth * audioDuration
+			createAudio.updateCurrentTime(calculatedTime)
+	}
+
+
+
+	function updateProgressBar(e){
+		     progressBar(e)
+		e.target.onmousedown = function(e){
+			e.target.onmousemove = progressBar
+		}
+		e.target.onmouseup = function(e){
+			e.target.onmousemove = null
+			// e.target.onmousedown = null
+		}
+		e.target.onmouseout = function(e){
+			e.target.onmousemove = null
+			// e.target.onmousedown = null
+		}
+	}
+
+	const updateVol = function(event){
+		const offsetX = event.offsetX
+		const elemWidth = event.target.offsetWidth
+
+		let volume = (offsetX) / (elemWidth) * 100
+		// update volume with this value
+
+		if(volume > 100)
+			volume = 100
+		else if(volume < 0)
+			volume = 0
+
+		createAudio.setVolume( (volume * .1) * .1)
+	}
+	function updateVolume(e){
+		updateVol(e)
+		e.target.onmousedown = function(e){
+			e.target.onmousemove = updateVol
+		}
+
+		e.target.onmouseup = function(e){
+			e.target.onmousemove = null
+			// e.target.onmousedown = null
+		}
+		e.target.onmouseout = function(e){
+			e.target.onmousemove = null
+			// e.target.onmousedown = null
+		}
+	}
+
+	function random(){
+		console.log(playType)
+	}
+
+	let isAudioMuted:boolean = true
+
+	function toggleVolumeState(event){
+		isAudioMuted = createAudio.audio.volume === 0
+		console.log(isAudioMuted)
+		 createAudio.setVolume(!isAudioMuted? 0 : 1)			 
+	}
 </script>
 
 <div class="controller">
 	<div class="controller__content">
 		<div class="controller__button_container" >
-			<div class="shuffle"></div>
+			<div class="shuffle">
+				<div class="shuffle__container">
+				<div class="shffle__button">
+					<div on:click={() => playType.toggleRandom()}
+					class:active={ playType.random }
+					>
+						<RandomIcon />
+					</div>
+				</div>
+				<div class="repeat__button">
+					<div on:click={ () => playType.toggleRepeat()}>
+						{#if !playType.repeat}
+							<ArrowRepeat />
+						{:else}
+						    <ArrowRepeatOnce />
+						{/if}
+					</div>
+				</div>
+				</div>
+			</div>
 			<div class="control">
-				<div class="button previous" on:click={ () => createAudio.previous() }>
+				<div class="button previous" on:click={ () => createAudio.previous() } on:keydown={null}>
 					<Previous />
 				</div>
-				<div class="button previous" on:click={ togglePlay }>
+				<div class="button previous" on:click={ togglePlay }  on:keydown={null} >
 					 {#if progress.isPlaying}
 						<Pause />
 					 {:else}
 					 	<Play />
 					 {/if}
 					</div>
-				<div class="button previous" on:click={ () => createAudio.next()}>
+				<div class="button previous" on:click={ () => createAudio.next()} on:keydown={null}>
 					<Next />
 				</div>
 			</div>
-			<div class="volume"></div>
+			<div class="volume">
+				<div class="content">
+					<div class="icon" on:click={ toggleVolumeState }>
+					 {#if isAudioMuted <= 0}
+					 	<VolumeOff />
+					 {:else}
+						<VolumeUp />
+					{/if}
+					</div>
+				<div on:mousedown={ updateVolume }>
+					<div class="volume__container">
+						<div class="volume__bar" 
+						style={`width:${track.volume * 100 }%`}></div>
+					</div>
+				</div>
+					
+				</div>
+			</div>
 		</div>
 		<div class="controller__progresssbar-container">
-			<div class="controller__bar">
-				<div class="progressbar">
+			<div class="controller__bar" on:mousedown={ updateProgressBar }>
+				<div class="progressbar" >
 					<div class="progressbar__container">
 						<div style={`width:${progress.progressBar}%`} />
 					</div>
@@ -64,16 +175,18 @@
 		color:white;
 		width:1.5rem;
 	}
-
 	:global(.button:last-child svg, .button:first-child svg){
 		width:1.1em;
 		color:#8ba1c1;
 	}
 
-	.controller {
+	.controller { 
 		height: 10em;
-		padding: $side-padding;
+		padding: $side-padding calc($side-padding + 1em);
+		padding-bottom:0;
 		padding-top: 0;
+		z-index: 22;
+		position:relative;
 
 		.controller__button_container{
 			display:flex;
@@ -81,7 +194,38 @@
 			align-items:center;
 
 			.shuffle{
-				background:blue;
+				display:flex;
+				align-items:center;
+				justify-content:center;
+				font-size:1em;
+				position:relative;
+
+				> div{
+					display:flex;
+					align-items:center;
+					justify-content:center;
+					position:absolute;
+					left:0;
+
+					> div{
+						padding: .2em;
+						display:inherit;
+						align-items:inherit;
+						justify-content:inherit;
+						height:1.5em;
+						cursor:pointer;
+						left: 0;
+					}
+
+					&:first-child{
+						padding-right:.3em;
+					}
+
+					&:last-child{
+						padding-left:.3em;
+					}
+				}
+
 			}
 
 			.control{
@@ -111,7 +255,56 @@
 			}
 
 			.volume{
-				background:purple;
+				padding:1em 0;
+				position:relative;
+				display:flex;
+				align-items:center;
+				justify-content:center;
+
+				.content{
+					display:flex;
+					align-items:center;
+					justify-content:center;
+					position: absolute;
+					right:-10px;
+					cursor:pointer;
+
+				.icon{
+					display:flex;
+					align-items:center;
+					justify-self: center;
+					padding:0;
+				}
+
+					> div:last-child{
+						padding:.5em 10px;
+
+						&:hover .volume__container{
+							height: .5em;
+						}
+					}
+				}
+
+				&__container{
+					right:0;
+					background:#1f2631;
+					width:7em;
+					border-radius:59em;
+					display:flex;
+					flex-flow:column;
+					justify-self: center;
+					cursor:pointer;
+					pointer-events:none;
+				}
+
+				&__bar{
+					background:#a3a3a3;
+					padding:.1em 0;
+					// width:50%;
+					height:inherit;
+					border-radius:59em;
+					pointer-events:none;
+				}
 			}
 		}
 
@@ -126,6 +319,7 @@
 		}
 
 		.controller__bar {
+			cursor:pointer;
 			.progressbar {
 				height:1.5em;
 				display:flex;
@@ -147,6 +341,8 @@
 				border-radius: 4em;
 				transition: transform 0.3s;
 				transition: height .3s;
+				pointer-events:none;
+				cursor:pointer;
 
 
 				> div {

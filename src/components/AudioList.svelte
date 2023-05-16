@@ -2,10 +2,14 @@
 	import { browser } from '$app/environment';
 	import { playlist, musicList, formatTimestamp, formatTimestampToDate } from './../store/main';
 	import { createAudio } from './../store/audio';
+	import { trackData } from './../store/main'
 
 
 	let audios: any[] = [];
 	playlist.subscribe(value => audios = value)
+
+	let track;
+	trackData.subscribe(value => track = value)
 
 	function playMusic(event: Event, obj) {
 		createAudio.playTrack(obj.index);
@@ -16,6 +20,7 @@
 <div class="audiolist">
 	<div class="audiolist__container">
 		<div class="audio">
+			<div class="shadow" />
 			<div class="main__title">
 				<div class="audio__content title">
 					<div>Title</div>
@@ -31,6 +36,7 @@
 					{#each audios as audio, index}
 						<div
 							class="audio__content" 
+							class:is_playing={track.index === index}
 							on:click={(event) => playMusic(event, { ...audio, index: index })}
 							on:keydown={null}
 						>
@@ -55,6 +61,7 @@
 		text-align: left;
 		height: 100%;
 		position: relative;
+		padding: 0px 1em;
 
 		&__container {
 			height: 100%;
@@ -66,26 +73,49 @@
 			height: 100%;
 			display: flex;
 			flex-flow: column;
+			overflow:hidden;
+			justify-content:center;
 
-			&:before{
+			& .shadow{
 				content:"";
 				width:100%;
-				background:blue;
+				margin: 0 auto;
+				justify-self: center;
 				padding:1em 0;
 				position:absolute;
-				z-index:4;
-				bottom:0;background: rgb(15,20,30);
-background: linear-gradient(0deg, rgba(15,20,30,1) 0%, rgba(15,20,30,0.7) 100%);
+				bottom:-3em;
+				display:flex;
+				align-items:center;
+				justify-content:center;
+
+				&:before{
+					content:"";
+					width:90%;
+					z-index: 4;
+	   				box-shadow:0px -20px 110px 56px #0f141e;
+				}
 			}
 
 			&__content {
 				display: flex;
 				color: white;
-				justify-content: space-between;
+				justify-content: center;
+				align-items:center;
 				text-align: left;
 				border-radius: 0.3em;
 				white-space: nowrap;
 				padding: 0.5em 0.7em;
+				padding-top:.6em;
+				border: dotted 1px transparent;
+
+
+
+				&.is_playing{
+					border: dotted 1px #a3a3a3;
+					font-weight:bolder;
+					color:white;
+					background:linear-gradient(0deg, rgb(6 1 27 / 62%) 4%, rgba(15, 20, 30, 0.4458158263) 100%);
+				}
 
 				&.playing{
 					background:blue !important;
@@ -114,6 +144,7 @@ background: linear-gradient(0deg, rgba(15,20,30,1) 0%, rgba(15,20,30,0.7) 100%);
 			.title {
 				padding-bottom: 1em;
 				position: sticky;
+				padding-top:1em;
 
 				> div {
 					width: 100%;

@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { trackData } from './../store/main.ts';
-
 	let trackMetaData = {};
 	trackData.subscribe((value) => (trackMetaData = value));
+
 </script>
 
 <div
 	class="preview__panel"
 	style={`background-image:url(${
-		trackMetaData.image ?? '/2a392148d9f25cb269d39cebcb271179.jpg'
+		trackMetaData.image ?? '/default.png'
 	})`}
 >
 	<div class="search" />
@@ -16,12 +16,13 @@
 		<div
 			class="image"
 			style={`background-image:url(${
-				trackMetaData.image ?? '/2a392148d9f25cb269d39cebcb271179.jpg'
+				trackMetaData.image ?? '/default.png'
 			})`}
 		/>
 		<div class="info">
 			<div class="info__name">
-				<h1>All Music</h1>
+				<h1>{trackMetaData.title ?? trackMetaData.filename ?? "Mongoplayer"}</h1>
+				<h3>{trackMetaData.artist ?? "Paul Ezekiel-Hart"}</h3>
 			</div>
 		</div>
 	</div>
@@ -37,12 +38,13 @@
 		// background-position: center left;
 		background-repeat: no-repeat;
 		background-size: cover;
-		border-radius: 1em;
+		// border-radius: 1em;
+		padding:0px 1em;
 
 		&:after {
 			content: '';
 			position: absolute;
-			border-radius: 1em;
+			border-radius: inherit;
 			top: 0;
 			left: 0;
 			backdrop-filter: blur(0.5em);
@@ -79,7 +81,14 @@
 				font-size: 3rem;
 				padding-top: 1em;
 				font-weight: bolder;
-				color: white;
+				font-size: 1.7rem;
+				color: #e6e6e6;
+				text-shadow: 0px 0px 4em black;
+			}
+			h3{
+				font-weight:bolder;
+				color:white;
+				font-size:1.2rem;
 			}
 		}
 

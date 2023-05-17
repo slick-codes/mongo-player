@@ -1,6 +1,7 @@
 
 <script>
 	import { browser } from '$app/environment'
+	import { Loader } from './icons/index'
 
 	let loaderData = {
 		title: "",
@@ -22,12 +23,15 @@
 
 {#if loaderData.isShowing }
 	<div class="container" >
-		<div class="loading">( {loaderData.index} ) .</div>
+		<div class="loading">
+			<Loader /> 
+			( {loaderData.index} ) 
+		</div>
 		<div class="output">{ loaderData.title } </div>
 	</div>
 {/if}
 
-<style>
+<style lang="scss">
 	.container{
 		position:absolute;
 		bottom:0;
@@ -43,5 +47,11 @@
 		padding-left: 4em;
 		padding-bottom:.5em;
 		color:#4b4b4b;
+
+		.loading{
+			display:flex;
+			align-items:center;
+			padding-right:.6em;
+		}
 	}
 </style>

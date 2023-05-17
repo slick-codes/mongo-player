@@ -75,11 +75,19 @@
 
 			.info {
 				padding-left: calc($side-padding - 1em);
+				width: calc(100% - 14em);
+
+				> div{
+					width:inherit;
+					overflow:hidden;
+				}
 			}
 
 			h1 {
+				width:100%;
 				font-size: 3rem;
 				padding-top: 1em;
+				white-space:nowrap;
 				font-weight: bolder;
 				font-size: 1.7rem;
 				color: #e6e6e6;
@@ -98,6 +106,7 @@
 			border-radius: 0.6em;
 			box-shadow: 0px 0px 20px 7px #00000033;
 			width: 12em;
+			position:relative;
 			background-size: cover;
 			background-repeat: no-repeat;
 		}

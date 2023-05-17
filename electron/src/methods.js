@@ -16,8 +16,8 @@ module.exports = function(window){
             directories: [
                 path.join(os.homedir(), "Music"),
                 // path.join(os.homedir(), "Documents"),
-                // path.join(os.homedir(), "Downloads"),
-                // path.join(os.homedir(), "Desktop")
+                path.join(os.homedir(), "Downloads"),
+                path.join(os.homedir(), "Desktop")
             ],
             // list of acceptable audio files
             acceptedFileType: [".mp3", ".ogg", ".wav"],
@@ -27,6 +27,7 @@ module.exports = function(window){
               const dataUrl = `data:${mimeType};base64,${base64Data}`;
               return dataUrl;
             },
+            // get  Duration using the FFprobe command line application
             getAudioDurationwithFFprobe({filePath, buffer}){
                  return new Promise((resolve, reject) => {
                     const command = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${filePath}"`;
@@ -44,6 +45,7 @@ module.exports = function(window){
                         });
                     });
                 },
+                // create Audio Object
             async createAudioObject({filePath, fileExt, fileStat, buffer}){
                 const duration =  await this.getAudioDurationwithFFprobe({filePath, buffer})
                  let filename = filePath.split('/')[filePath.split('/').length - 1].split('.')
@@ -69,7 +71,7 @@ module.exports = function(window){
                     genre: genre ?? defaultValue, 
                     album: album?? filename , 
                     artist: artist ?? defaultValue,
-                    // image: defaultImage,
+                    image: defaultImage,
                     duration: duration,
                     birthtime: fileStat.birthtime
                 }

@@ -36,11 +36,12 @@
 		max-width:50vw;
 		overflow:hidden;
 		font-size:.7rem;
-		font-weight:bold;
+/*		font-weight:bold;*/
 		white-space:nowrap;
 		display:flex;
 		align-items:center;
-		padding-left: 3em;
-		color:gray;
+		padding-left: 4em;
+		padding-bottom:.5em;
+		color:#4b4b4b;
 	}
 </style>

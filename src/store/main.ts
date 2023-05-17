@@ -31,12 +31,8 @@ export  const getAudioData = async function() {
       window.api.onFetchAudio( function(data){
         createAudio.addPlaylist(data)
         playlist.update(value => data)
-        // console.log(data)
       })
 
-      window.api.onAudioLoading( function(index){
-        console.log(index)
-      })
     }
 }
 

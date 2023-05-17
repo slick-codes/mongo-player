@@ -77,7 +77,7 @@ module.exports = function(window){
                 }
             },
 
-            async scanForAudio(){
+            async scanForAudio(event){
                 let index = 0;
                    const fetchAudio = async ( directories ) => {
                         let arrayOfAudio = [];
@@ -91,8 +91,7 @@ module.exports = function(window){
                                 const fileStat = await fs.promises.stat(filePath)
 
                                 if(fileStat.isDirectory()){
-                                    let audios = await fetchAudio([filePath])
-                                    arrayOfAudio = [...arrayOfAudio, ...audios]
+                                    await fetchAudio([filePath])
                                 }
 
                                 if(fileStat.isFile() && this.acceptedFileType.includes(fileExt)){
@@ -103,20 +102,28 @@ module.exports = function(window){
                                     })
                                     index++
                                     window.webContents.send("audio-read", {index, audio: audioObject})
-
-                                    arrayOfAudio.push(audioObject)
+                                    // ssend audio to preloader
+                                    event.reply("audio-array", audioObject)
                                 }
 
                             }
                         }
 
-                        return arrayOfAudio
                    }
-
-                   return await Promise.resolve(fetchAudio(this.directories))
+                    fetchAudio(this.directories)
             },
             scanPcForAudio(){
 
+            },
+            async waitForFolderChanges(event){
+
+                for(let directory of this.directories){
+                    await fs.watch(directory, function(error, data){
+                        // if(error) return console.log('something went wrong while watching the', directory, "directory")
+
+                        console.log(error, data)
+                    })
+                }
             }
         }
 
@@ -125,10 +132,8 @@ module.exports = function(window){
     ipcMain.on("fetch-all-audios", fetchAllAudios )
 
     function fetchAllAudios(event, arg){
-        methods.scanForAudio()
-        .then(data => {
-            event.reply("audio-array", data)
-        })
+        methods.scanForAudio(event)
+        methods.waitForFolderChanges(event)
         // remove this event once it has been used
         // ipcMain.removeListener("fetch-all-audios", () => console.log('ended'))
     }

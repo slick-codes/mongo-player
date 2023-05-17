@@ -90,7 +90,6 @@
 
 	function toggleVolumeState(event){
 		isAudioMuted = createAudio.audio.volume === 0
-		console.log(isAudioMuted)
 		 createAudio.setVolume(!isAudioMuted? 0 : 1)			 
 	}
 </script>

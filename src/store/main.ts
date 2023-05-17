@@ -26,11 +26,12 @@ export let playlist = writable([])
 
 // fetch audio from 
 export  const getAudioData = async function() {
+        console.log("working for sure")
     if (browser) {
 
       window.api.onFetchAudio( function(data){
         createAudio.addPlaylist(data)
-        playlist.update(value => data)
+        playlist.update(value => [...value, data])
       })
 
     }

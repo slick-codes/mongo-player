@@ -7,5 +7,6 @@ import ArrowRepeatOnce from './ArrowRepeatOnce.svelte'
 import RandomIcon from './RandomIcon.svelte'
 import VolumeUp from './VolumeUp.svelte'
 import VolumeOff from './VolumeOff.svelte'
+import Loader from './Loader.svelte'
 
-export { Pause, Play, Previous, Next, ArrowRepeat, ArrowRepeatOnce, RandomIcon, VolumeUp, VolumeOff }
+export { Pause, Play, Previous, Next, ArrowRepeat, ArrowRepeatOnce, RandomIcon, VolumeUp, Loader, VolumeOff }

@@ -60,6 +60,7 @@
 		"@slickcodes/object-2-html": "^1.0.1",
 		"@sveltejs/adapter-static": "^1.0.1",
 		"@types/nodemailer": "^6.4.7",
+		"chokidar": "^3.5.3",
 		"data-uri": "^0.0.3",
 		"electron": "11.5.0",
 		"get-mp3-duration": "^1.0.0",

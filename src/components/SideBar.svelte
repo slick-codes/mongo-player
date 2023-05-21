@@ -123,11 +123,6 @@
 				transition: 0.3s;
 			}
 
-			&.scaleout {
-				// transform: scale(0);
-				color: blue;
-			}
-
 			> * {
 				pointer-events: none;
 			}

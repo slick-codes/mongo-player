@@ -100,14 +100,16 @@
 			<div class="shuffle">
 				<div class="shuffle__container">
 				<div class="shffle__button">
-					<div on:click={() => playType.toggleRandom()}
-					class:active={ playType.random }
+					<div 
+						on:click={() => playType.toggleRandom()}
+						on:keydown={null}
+						class:active={ playType.random }
 					>
 						<RandomIcon />
 					</div>
 				</div>
 				<div class="repeat__button">
-					<div on:click={ () => playType.toggleRepeat()}>
+					<div on:click={ () => playType.toggleRepeat()} on:keydown={null}>
 						{#if !playType.repeat}
 							<ArrowRepeat />
 						{:else}
@@ -134,7 +136,7 @@
 			</div>
 			<div class="volume">
 				<div class="content">
-					<div class="icon" on:click={ toggleVolumeState }>
+					<div class="icon" on:click={ toggleVolumeState } on:keydown={null}>
 					 {#if isAudioMuted <= 0}
 					 	<VolumeOff />
 					 {:else}

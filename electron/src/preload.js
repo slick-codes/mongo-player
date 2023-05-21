@@ -10,18 +10,17 @@ contextBridge.exposeInMainWorld("api", {
     getMetaData: (metaData) => (metaData.map(value => ({ path: value, ...NodeID3.read(value) }))),
     // 
     onFetchAudio: (callback) => {
-        ipcRenderer.send("fetch-all-audios") // tell the main file to fetch the audios
-        ipcRenderer.on("audio-array", (event, arg)=> { // interact with the main file response
-            callback(arg)
-        })
+        // tell the main file to fetch the audios
+        ipcRenderer.send("fetch-all-audios") 
+        // interact with the main file response
+        ipcRenderer.on("audio-array", (event, arg)=> {  callback(arg) })
     },
     //
     onAudioLoading: callback => {
-        ipcRenderer.on("audio-read", (event, arg) => {
-            console.log('triggered')
-            callback(arg)
-        })
-    }
+        ipcRenderer.on("audio-read", (event, arg) => { callback(arg) })
+    },
+    onAddAudio: callback => { ipcRenderer.on("dir-add-audio", (event, arg) => callback(arg)) },
+    onUnlinkedAudio: callback => { ipcRenderer.on("dir-delete-audio", (event, arg) => callback(arg))},
+    onChangeAudio: callback => { ipcRenderer.on("dir-change-audio", (event, arg) => callback(arg))}
 })
-
 

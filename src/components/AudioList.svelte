@@ -36,7 +36,7 @@
 					{#each audios as audio, index}
 						<div
 							class="audio__content" 
-							class:is_playing={track.index === index}
+							class:is_playing={track.file === audio.file}
 							on:click={(event) => playMusic(event, { ...audio, index: index })}
 							on:keydown={null}
 						>
@@ -57,7 +57,6 @@
 <style lang="scss">
 	@import './../assets/scss/config';
 	.audiolist {
-		// margin-top: -2em;
 		text-align: left;
 		height: 100%;
 		position: relative;
@@ -115,10 +114,6 @@
 					font-weight:bolder;
 					color:white;
 					background:linear-gradient(0deg, rgb(6 1 27 / 62%) 4%, rgba(15, 20, 30, 0.4458158263) 100%);
-				}
-
-				&.playing{
-					background:blue !important;
 				}
 
 				&:not(.title) {

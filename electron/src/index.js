@@ -1,4 +1,5 @@
-const { app, BrowserWindow ,ipcMain} = require('electron')
+/* eslint-disable */
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const methods = require('./methods')
 
@@ -34,19 +35,16 @@ app.whenReady().then(function () {
     // this is only for development purpose
     window.on("ready-to-show", window.show)
 
-    console.log(process.env.DEVELOPMENT)
-
-   if(process.env.DEVELOPMENT){
-    // window.setPosition(1618, 180)
-    // window.setFullScreen(true);
-   	 window.loadURL("http://localhost:5173")
-   	 window.webContents.openDevTools()
- } else{
-    console.log('a boy')
-	window.loadFile(path.join(__dirname, "../../build/index.html"))
-}
+    if (process.env.DEVELOPMENT) {
+        window.setPosition(1618, 180)
+        // window.setFullScreen(true);
+        window.loadURL("http://localhost:5173")
+        window.webContents.openDevTools()
+    } else {
+        window.loadFile(path.join(__dirname, "../../build/index.html"))
+    }
 
 
-methods(window)
+    methods(window)
 
 })

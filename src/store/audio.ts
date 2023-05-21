@@ -1,4 +1,4 @@
-import { progressState,trackData, playState, formatTimestamp } from './main'
+import { progressState,trackData,toBeRemoved,showPlayingAudio, playlist, playState, formatTimestamp } from './main'
 import { browser } from '$app/environment'
 
 // console.log(trackData)
@@ -16,7 +16,7 @@ class CreateAudio {
   }
 
   addPlaylist(playlist) {
-    this.playlist = playlist
+    this.playlist = [...this.playlist, playlist]
   }
 
   setVolume(volume){
@@ -82,8 +82,6 @@ class CreateAudio {
         this.playTrack(this.index)
       else 
         this.audio.currentTime = 0
-
-        console.log("index", this.index)
       
   }
 
@@ -91,6 +89,17 @@ class CreateAudio {
     if(!this.playlist.length) return 
         let playBehavior;
         playState.subscribe(value => playBehavior = value)
+
+        let isToBeRemoved = undefined;
+        toBeRemoved.subscribe(value => isToBeRemoved = value)
+
+        if(isToBeRemoved){
+          console.log(isToBeRemoved)
+          createAudio.playlist = createAudio.playlist.filter( audio => audio.file !== isToBeRemoved.filePath)
+          playlist.update(value => value.filter(audio => audio.file !== isToBeRemoved.filePath))
+         this.index--
+         toBeRemoved.update(value => null)
+        }
 
 
       if(playBehavior.random){
@@ -116,6 +125,7 @@ class CreateAudio {
         }else
           this.playTrack(randNum)
 
+          showPlayingAudio()
       
       }else{
         console.log(this.index , this.playlist.length)
@@ -150,7 +160,7 @@ class CreateAudio {
 
       this.audio.onended = (event) => {
         // this will handles the shuffling, repeat and circle repeat when it's complete 
-            if(!this.playlist.length) return 
+        if(!this.playlist.length) return 
         let playBehavior;
         playState.subscribe(value => playBehavior = value)
 

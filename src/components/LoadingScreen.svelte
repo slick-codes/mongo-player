@@ -2,32 +2,36 @@
 <script>
 	import { browser } from '$app/environment'
 	import { Loader } from './icons/index'
+	import { loaderData } from './../store/main'
 
-	let loaderData = {
-		title: "",
-		index: "",
-		isShowing: false
-	}
+	let loaderObj;
+	loaderData.subscribe(value => loaderObj = value)
+
 	let timeout = null
 
 	if(browser)
 		window.api.onAudioLoading( function(data){
 			clearTimeout(timeout)
-			loaderData.index = data.index 
-			loaderData.title = data.audio.title ?? data.audio.filename
-			loaderData.isShowing = true
+			loaderData.update( value => {
+				return {
+					index: data.index,
+					title: data.audio.title ?? data.audio.filename,
+					isShowing: true
+				}
+			} )
 
-			timeout = setTimeout(()=> loaderData.isShowing = false, 500)
+			timeout = setTimeout(()=> loaderData.update( value => ({...value, isShowing: false})), 1500)
 		} )
+
 </script>
 
-{#if loaderData.isShowing }
+{#if loaderObj.isShowing }
 	<div class="container" >
 		<div class="loading">
 			<Loader /> 
-			( {loaderData.index} ) 
+			( {loaderObj.index} ) 
 		</div>
-		<div class="output">{ loaderData.title } </div>
+		<div class="output">{ @html loaderObj.title } </div>
 	</div>
 {/if}
 

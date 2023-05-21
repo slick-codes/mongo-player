@@ -22,22 +22,85 @@ export const playState = writable({
     }
 })
 
-export let playlist = writable([])
-
-// fetch audio from 
-export  const getAudioData = async function() {
-        console.log("working for sure")
-    if (browser) {
-
-      window.api.onFetchAudio( function(data){
-        createAudio.addPlaylist(data)
-        playlist.update(value => [...value, data])
-      })
-
-    }
+export const showPlayingAudio = function(){
+	if(browser){
+		const isPlaying = document.querySelector('.is_playing')
+		console.log(isPlaying)
+	}
 }
 
-getAudioData()
+export const loaderData = writable({ title: "", index: "", isShowing: false })
+export const toBeRemoved = writable(null)
+export const playlist = writable([])
+
+
+if(browser){
+	(function(){
+	    // fetch all audio data
+	      window.api.onFetchAudio( data =>{
+	        createAudio.addPlaylist(data)
+	        playlist.update(value => [...value, data])
+	      })
+
+	      // Check if audio/s have been added to directories
+	      window.api.onAddAudio( data => {
+	      	createAudio.playlist.unshift(data.file)
+	      	playlist.update(value => [data.file, ...value])
+
+	      	loaderData.set({
+	      		title: `<strong style="background:green; padding:0px .5em; color:white;">Added</strong> ${data.file.filename} `,
+	      		index: 1,
+	      		isShowing: true
+	      	})
+
+			setTimeout(()=> loaderData.update( value => ({...value, isShowing: false})), 1500)
+
+	      	
+	      	if(createAudio.audio.src){
+	      		createAudio.index += 1
+	      		// update the playIndexArray to capture the previewly played audio
+	      		createAudio.playedIndexArray = createAudio.playedIndexArray.filter( index => index < createAudio.playedIndexArray.length && index !== data.index )
+	      		createAudio.playedIndexArray = createAudio.playedIndexArray.map( index => index + 1 )
+	      	}
+
+
+	        console.log(data.file.filename, "Added")
+	      } )
+
+	      // check if audios have been updated to directories
+	      window.api.onUnlinkedAudio( data => {
+	          // console.log("Deleted!", data)
+	      	if(createAudio.index === data.index && createAudio.audio.src)
+	      		return toBeRemoved.update(value => data)
+
+	      	createAudio.playlist .forEach(audio => {
+	      		if(audio.file !== data.filePath){
+			      	loaderData.set({
+			      		title: `<strong style="background:red; padding:0px .5em; color:white;">Deleted</strong> ${audio.filename}`,
+			      		index: 1,
+			      		isShowing: true
+			      	})
+
+					setTimeout(()=> loaderData.update( value => ({...value, isShowing: false})), 1500)
+				}
+	      	})
+
+	      	createAudio.playlist = createAudio.playlist.filter( audio => audio.file !== data.filePath)
+	      	playlist.update(value => value.filter(audio => audio.file !== data.filePath))
+
+
+	      	// decreate the index of the current playling audio if item was deleted from the top
+	      	if(createAudio.index > data.index && createAudio.audio.src){
+	      		createAudio.index--
+	      	}
+	      	// update the playIndexArray to capture the previewly played audio
+	      	createAudio.playedIndexArray = createAudio.playedIndexArray.filter( index => index < createAudio.playedIndexArray.length && index !== data.index )
+	      	createAudio.playedIndexArray = createAudio.playedIndexArray.map( index => index < data.index? index - 1 : index )
+
+	      	console.log("file removed!")
+	      })
+	})()
+}
 
 
 

@@ -10,6 +10,36 @@ export const progressState = writable({
   duration: "00:00"
 })
 
+
+if(browser)
+	window.onkeydown = function(event){
+		event.preventDefault()
+		const { currentTime, duration }  = createAudio.audio
+
+		if(event.code.toLowerCase() === 'space')
+			document.querySelector(".play_button").click()
+		else if (event.code.toLowerCase() === 'keym')
+			document.querySelector('.icon').click()
+		else if(event.code.toLowerCase() === 'pageup')
+			document.querySelector('.next__audio').click()
+		else if(event.code.toLowerCase() === 'pagedown')
+			document.querySelector('.previous__audio').click()
+		else if(event.code.toLowerCase() === "arrowdown" && createAudio.audio.volume >= 0 )
+			createAudio.setVolume(createAudio.audio.volume - 0.1 < 0? 0 : createAudio.audio.volume - 0.1)
+		else if(event.code.toLowerCase() === "arrowup")
+			createAudio.setVolume(createAudio.audio.volume + 0.1 > 1? 1 : createAudio.audio.volume + 0.1)
+		else if(event.code.toLowerCase() === "arrowleft" && event.shiftKey)
+			createAudio.updateCurrentTime(currentTime - 10 < 0? 0 : currentTime  - 10)
+		else if(event.code.toLowerCase() === "arrowleft")
+			createAudio.updateCurrentTime(currentTime - 5 < 0? 0 : currentTime - 5)
+		else if(event.code.toLowerCase() === "arrowright" && event.shiftKey)
+			createAudio.updateCurrentTime(currentTime + 10 > duration? duration : currentTime + 10)
+		else if(event.code.toLowerCase() === "arrowright")
+			createAudio.updateCurrentTime(currentTime + 5 > duration? duration : currentTime + 5)
+
+	}
+
+
 export const trackData = writable({index: 0})
 export const playState = writable({
     repeat: true,

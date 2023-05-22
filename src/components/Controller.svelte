@@ -87,10 +87,12 @@
 	}
 
 	let isAudioMuted:boolean = true
+	let volBackup = 0;
 
 	function toggleVolumeState(event){
 		isAudioMuted = createAudio.audio.volume === 0
-		 createAudio.setVolume(!isAudioMuted? 0 : 1)			 
+		if(!isAudioMuted) volBackup = createAudio.audio.volume 
+		 createAudio.setVolume(!isAudioMuted? 0 : volBackup)			 
 	}
 </script>
 
@@ -120,35 +122,43 @@
 				</div>
 			</div>
 			<div class="control">
-				<div class="button previous" on:click={ () => createAudio.previous() } on:keydown={null}>
+				<div class="button previous__audio" on:click={ () => createAudio.previous() } on:keydown={null}>
 					<Previous />
 				</div>
-				<div class="button previous" on:click={ togglePlay }  on:keydown={null} >
+				<div class="button play_button previous" on:click={ togglePlay }  on:keydown={null} >
 					 {#if progress.isPlaying}
 						<Pause />
 					 {:else}
 					 	<Play />
 					 {/if}
 					</div>
-				<div class="button previous" on:click={ () => createAudio.next()} on:keydown={null}>
+				<div 
+					class="button next__audio" 
+					on:click={ () => createAudio.next() } 
+					on:keydown={null}
+				>
 					<Next />
 				</div>
 			</div>
 			<div class="volume">
 				<div class="content">
-					<div class="icon" on:click={ toggleVolumeState } on:keydown={null}>
+					<div 
+						class="icon" 
+						on:click={ toggleVolumeState } 
+						on:keydown={null}
+					>
 					 {#if isAudioMuted <= 0}
 					 	<VolumeOff />
 					 {:else}
 						<VolumeUp />
 					{/if}
 					</div>
-				<div on:mousedown={ updateVolume }>
-					<div class="volume__container">
-						<div class="volume__bar" 
-						style={`width:${track.volume * 100 }%`}></div>
+					<div on:mousedown={ updateVolume }>
+						<div class="volume__container">
+							<div class="volume__bar" 
+							style={`width:${track.volume * 100 }%`}></div>
+						</div>
 					</div>
-				</div>
 					
 				</div>
 			</div>

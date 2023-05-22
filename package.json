@@ -1,5 +1,9 @@
 {
 	"name": "test",
+	 "author": {
+	    "name": "Paul Innocent Ezekiel-Hart",
+	    "email": "hartpaulisimo@gmail.com"
+  	},
 	"version": "0.0.1",
 	"private": true,
 	"type": "module",
@@ -18,9 +22,25 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write ."
 	},
+	"build": {
+		"appId": "com.your.app.0.0.1",
+		"productName": "Mongo Player",
+		"directories": {
+			"output": "build_app"
+		},
+		"win": {
+			"icon": "./static/default.png"
+		},
+		"mac": {
+			"icon": "./static/default.png"
+		},
+		"linux": {
+			"target": "deb",
+			"icon": "./static/default.png"
+		}
+	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
-		"@iconify/svelte": "3.0.0",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^1.0.0",
 		"@sveltejs/kit": "^1.0.0",
@@ -31,6 +51,8 @@
 		"axios": "^1.2.2",
 		"cookie": "^0.4.1",
 		"dotenv": "^16.0.3",
+		"electron": "11.5.0",
+		"electron-builder": "^23.6.0",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
@@ -45,8 +67,6 @@
 		"sass": "^1.57.1",
 		"svelte": "^3.54.0",
 		"svelte-check": "^2.9.2",
-		"svelte-fa": "^3.0.3",
-		"svelte-feather-icons": "^4.0.0",
 		"svelte-octicons": "^18.2.0",
 		"svelte-preprocess": "4.10.7",
 		"svelte-reactive-preprocessor": "^0.8.3",
@@ -62,14 +82,10 @@
 		"@types/nodemailer": "^6.4.7",
 		"chokidar": "^3.5.3",
 		"data-uri": "^0.0.3",
-		"electron": "11.5.0",
 		"get-mp3-duration": "^1.0.0",
 		"music-duration": "^1.0.2",
 		"music-metadata": "^8.1.4",
 		"node-id3": "^0.2.6",
-		"svelte-icons": "^2.1.0",
-		"svelte-icons-pack": "^2.1.0",
-		"svelte-material-icons": "^3.0.4",
-		"svelte-simple-icons": "^1.0.3"
+		"svelte-material-icons": "^3.0.4"
 	}
 }

@@ -2,6 +2,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const methods = require('./methods')
+const url = require('url')
 
 
 // disable file access restriction
@@ -32,6 +33,9 @@ app.whenReady().then(function () {
     })
 
 
+    // Zoom out by 25%
+    // window.webContents.setZoomFactor(0.90);
+
     // this is only for development purpose
     window.on("ready-to-show", window.show)
 
@@ -41,7 +45,16 @@ app.whenReady().then(function () {
         window.loadURL("http://localhost:5173")
         window.webContents.openDevTools()
     } else {
-        window.loadFile(path.join(__dirname, "../../build/index.html"))
+        // window.loadFile(path.join(__dirname, "../../build/index.html"))
+        let appdir = app.getAppPath()
+
+        window.loadURL(
+            url.format({
+                pathname: path.join(appdir, "build", "index.html"),
+                protocol: "file:",
+                slashes: true
+            })
+        )
     }
 
 

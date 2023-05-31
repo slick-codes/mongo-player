@@ -11,10 +11,10 @@
 	"main": "electron/src/",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build && node script.cjs",
 		"electron": "export DEVELOPMENT=true && electron .",
-		"electron:run": "export DEVELOPMENT= && electron .",
-		"electron:build": "vite build && electron .",
+		"electron:run": "export DEVELOPMENT= &&  electron .",
+		"electron:build": "vite build && node script.cjs &&  electron .",
 		"electron-build": "electron-builder",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -25,19 +25,25 @@
 	},
 	"build": {
 		"appId": "com.your.app.0.0.1",
-		"productName": "Mongo Player",
+		"productName": "mongo-player",
 		"directories": {
-			"output": "build_app"
+			"output": "dist"
 		},
 		"win": {
-			"icon": "./static/default.png"
+			"icon": "static/favicon.ico",
+			"target": [
+				"nsis"
+			]
 		},
 		"mac": {
-			"icon": "./static/default.png"
+			"icon": "static/default.ico"
 		},
 		"linux": {
-			"target": "deb",
-			"icon": "./static/default.png"
+			"icon": "static/default.ico",
+			"target": [
+				"AppImage",
+				"deb"
+			]
 		}
 	},
 	"devDependencies": {

@@ -1,4 +1,5 @@
-const { ipcMain, remote } = require("electron")
+/* eslint-disable */
+const { ipcMain, remote, app } = require("electron")
 const path = require("path")
 const os = require("os")
 const NodeID3 = require("node-id3")
@@ -7,6 +8,7 @@ const fs = require('fs')
 const getMp3Duration = require('get-mp3-duration')
 const chokidar = require('chokidar')
 
+let homeDir = app.getPath("home")
 
 
 module.exports = function (window) {
@@ -14,10 +16,10 @@ module.exports = function (window) {
     const methods = {
         // acceptable directories
         directories: [
-            path.join(os.homedir(), "Music"),
-            // path.join(os.homedir(), "Documents"),
-            path.join(os.homedir(), "Downloads"),
-            path.join(os.homedir(), "Desktop")
+            path.join(homeDir, "Music"),
+            path.join(homeDir, "Downloads"),
+            path.join(homeDir, "Desktop")
+            // path.join(homeDir, "Documents")
         ],
         // list of acceptable audio files
         acceptedFileType: [".mp3", ".ogg", ".wav"],

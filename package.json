@@ -36,10 +36,10 @@
 			]
 		},
 		"mac": {
-			"icon": "static/default.ico"
+			"icon": "default.png"
 		},
 		"linux": {
-			"icon": "static/default.ico",
+			"icon": "default.png",
 			"target": [
 				"AppImage",
 				"deb"

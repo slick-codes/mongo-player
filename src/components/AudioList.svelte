@@ -2,19 +2,17 @@
 	import { browser } from '$app/environment';
 	import { playlist, musicList, formatTimestamp, formatTimestampToDate } from './../store/main';
 	import { createAudio } from './../store/audio';
-	import { trackData } from './../store/main'
-
+	import { trackData } from './../store/main';
 
 	let audios: any[] = [];
-	playlist.subscribe(value => audios = value)
+	playlist.subscribe((value) => (audios = value));
 
 	let track;
-	trackData.subscribe(value => track = value)
+	trackData.subscribe((value) => (track = value));
 
 	function playMusic(event: Event, obj) {
 		createAudio.playTrack(obj.index);
 	}
-
 </script>
 
 <div class="audiolist">
@@ -35,7 +33,7 @@
 				<div class="element">
 					{#each audios as audio, index}
 						<div
-							class="audio__content" 
+							class="audio__content"
 							class:is_playing={track.file === audio.file}
 							on:click={(event) => playMusic(event, { ...audio, index: index })}
 							on:keydown={null}
@@ -43,8 +41,8 @@
 							<div>{audio.title ?? audio.filename}</div>
 							<div>{audio.artist ?? 'Unknown'}</div>
 							<div>{audio.album ?? 'Unknown'}</div>
-							<div>{ formatTimestampToDate(audio.birthtime) ?? "Unknown"}</div>
-								<div>{formatTimestamp(audio.duration)}</div>
+							<div>{formatTimestampToDate(audio.birthtime) ?? 'Unknown'}</div>
+							<div>{formatTimestamp(audio.duration)}</div>
 						</div>
 					{/each}
 					<!-- {/await} -->
@@ -72,26 +70,26 @@
 			height: 100%;
 			display: flex;
 			flex-flow: column;
-			overflow:hidden;
-			justify-content:center;
+			overflow: hidden;
+			justify-content: center;
 
-			& .shadow{
-				content:"";
-				width:100%;
+			& .shadow {
+				content: '';
+				width: 100%;
 				margin: 0 auto;
 				justify-self: center;
-				padding:1em 0;
-				position:absolute;
-				bottom:-3em;
-				display:flex;
-				align-items:center;
-				justify-content:center;
+				padding: 1em 0;
+				position: absolute;
+				bottom: -3em;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 
-				&:before{
-					content:"";
-					width:90%;
+				&:before {
+					content: '';
+					width: 90%;
 					z-index: 4;
-	   				box-shadow:0px -20px 110px 56px #0f141e;
+					box-shadow: 0px -20px 110px 56px #0f141e;
 				}
 			}
 
@@ -99,21 +97,23 @@
 				display: flex;
 				color: white;
 				justify-content: center;
-				align-items:center;
+				align-items: center;
 				text-align: left;
 				border-radius: 0.3em;
 				white-space: nowrap;
 				padding: 0.5em 0.7em;
-				padding-top:.6em;
+				padding-top: 0.6em;
 				border: dotted 1px transparent;
 
-
-
-				&.is_playing{
+				&.is_playing {
 					border: dotted 1px #a3a3a3;
-					font-weight:bolder;
-					color:white;
-					background:linear-gradient(0deg, rgb(6 1 27 / 62%) 4%, rgba(15, 20, 30, 0.4458158263) 100%);
+					font-weight: bolder;
+					color: white;
+					background: linear-gradient(
+						0deg,
+						rgb(6 1 27 / 62%) 4%,
+						rgba(15, 20, 30, 0.4458158263) 100%
+					);
 				}
 
 				&:not(.title) {
@@ -139,7 +139,7 @@
 			.title {
 				padding-bottom: 1em;
 				position: sticky;
-				padding-top:1em;
+				padding-top: 1em;
 
 				> div {
 					width: 100%;

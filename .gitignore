@@ -2,6 +2,8 @@
 node_modules
 build_app/
 /build
+/electron/src/build
+/dist
 /.svelte-kit
 /package
 .env
